@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.financyear.dto.AdditionalDto;
 import com.financyear.dto.CustomerAccountsDto;
 import com.financyear.dto.CustomerDto;
 import com.financyear.dto.UserDto;
+import com.financyear.model.AdditionalInfo;
 import com.financyear.model.Customer;
 import com.financyear.model.CustomerAccounts;
 import com.financyear.model.User;
@@ -135,5 +137,22 @@ public class TransformEntityToDto {
 		
 	}
 		return customerDto;
+	}
+
+
+	public static void getAdditionalInfoById(AdditionalDto info,
+			AdditionalInfo infoList) {
+		
+		if(infoList != null){
+			info.setId(infoList.getId().toString());
+			info.setCreatedBy(infoList.getCreatedBy());
+			info.setDiscription(infoList.getDiscription());
+			info.setCreatedOn(Utils.convertDateToString_India(infoList.getCreatedOn()));
+			info.setUpdatedBy(infoList.getUpdatedBy());
+			info.setUpdatedOn(Utils.convertDateToString_India(infoList.getUpdatedOn()));
+			
+		}
+
+		
 	}
 }

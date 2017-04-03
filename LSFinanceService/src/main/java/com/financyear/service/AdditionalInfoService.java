@@ -21,4 +21,8 @@ public interface AdditionalInfoService {
 	public void deleteAdditionalInfo(AdditionalInfo addtInfo);
 
 
+	public AdditionalInfo getAdditionalInfoById(HttpServletRequest request,
+			String id);
+
+
 }

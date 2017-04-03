@@ -12,5 +12,8 @@ public interface AdditionalInfoDao extends GenericDao<AdditionalInfo, Integer> {
 
  public	List<AdditionalDto> getAdditionalInfoByUser(HttpServletRequest request);
 
+public AdditionalInfo getAdditionalInfoByUserById(HttpServletRequest request,
+		String id);
+
 
 }

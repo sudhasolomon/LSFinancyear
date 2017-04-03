@@ -17,6 +17,7 @@ import com.financyear.model.AdditionalInfo;
 import com.financyear.service.AdditionalInfoService;
 import com.financyear.utils.StatusMessage;
 import com.financyear.utils.TransformDtoToEntity;
+import com.financyear.utils.TransformEntityToDto;
 import com.financyear.utils.Utils;
 
 @Controller
@@ -47,7 +48,7 @@ public class AdditionalInfoController {
 			 
 		 }else{
 			 
-			 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			 return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
 		 }
 		
 	}
@@ -63,7 +64,23 @@ public class AdditionalInfoController {
 			return new ResponseEntity<List<?>>(infoList, HttpStatus.OK);
 		 }else{
 			 
-			 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			 return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
+		 }
+		
+	}
+	
+	@RequestMapping(value = "getAdditionalInfoById", method = RequestMethod.POST)
+	public ResponseEntity<?> getAdditionalInfoById(HttpServletRequest request,
+			@RequestBody AdditionalDto dto){
+		 if(Utils.getLoginUserName(request) != null){
+			 AdditionalDto info = new AdditionalDto();
+			AdditionalInfo infoList=infoService.getAdditionalInfoById(request, dto.getId());
+			 TransformEntityToDto.getAdditionalInfoById(info,infoList);
+			
+			return new ResponseEntity<AdditionalDto>(info, HttpStatus.OK);
+		 }else{
+			 
+			 return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
 		 }
 		
 	}
@@ -90,7 +107,7 @@ public class AdditionalInfoController {
 			 
 		 }else{
 			 
-			 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			 return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
 		 }
 		
 	}

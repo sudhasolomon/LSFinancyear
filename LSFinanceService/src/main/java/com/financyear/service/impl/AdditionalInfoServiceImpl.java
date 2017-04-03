@@ -39,4 +39,11 @@ public class AdditionalInfoServiceImpl implements AdditionalInfoService{
 		
 	}
 
+
+	@Override
+	public AdditionalInfo getAdditionalInfoById(HttpServletRequest request,
+			String id) {
+		return infoDao.getAdditionalInfoByUserById(request, id);
+	}
+
 }

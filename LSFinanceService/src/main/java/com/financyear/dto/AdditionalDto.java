@@ -9,8 +9,23 @@ public class AdditionalDto {
 	private String discription;
 	private String createdOn;
 	private String createdBy;
+	private String updatedOn;
+	private String updatedBy;
 	
 	
+	
+	public String getUpdatedOn() {
+		return updatedOn;
+	}
+	public void setUpdatedOn(String updatedOn) {
+		this.updatedOn = updatedOn;
+	}
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
 	public String getId() {
 		return Id;
 	}

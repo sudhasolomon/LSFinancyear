@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.cglib.transform.impl.AddInitTransformer;
+
 import com.financyear.dto.AdditionalDto;
 import com.financyear.dto.CustomerAccountsDto;
 import com.financyear.dto.CustomerDto;
@@ -98,6 +100,8 @@ public class TransformDtoToEntity {
 			addtInfo.setDeleteFlag(String.valueOf(0));
 			if(infoDto.getId() != null){
 				addtInfo.setId(Integer.parseInt(infoDto.getId()));
+				addtInfo.setUpdatedBy(infoDto.getUpdatedBy());
+				addtInfo.setUpdatedOn(new Date());
 			}
 		}
 		

@@ -18,6 +18,13 @@ public class AdditionalInfo {
 	private Date createdOn;
 	private String createdBy;
 	private String deleteFlag;
+	private Date updatedOn;
+	private String updatedBy;
+	
+	
+	
+	
+	
 	public Integer getId() {
 		return Id;
 	}
@@ -48,5 +55,16 @@ public class AdditionalInfo {
 	public void setDeleteFlag(String deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
-	
+	public Date getUpdatedOn() {
+		return updatedOn;
+	}
+	public void setUpdatedOn(Date updatedOn) {
+		this.updatedOn = updatedOn;
+	}
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
 }

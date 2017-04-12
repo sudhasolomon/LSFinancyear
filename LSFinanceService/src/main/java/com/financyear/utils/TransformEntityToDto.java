@@ -8,10 +8,12 @@ import java.util.List;
 import com.financyear.dto.AdditionalDto;
 import com.financyear.dto.CustomerAccountsDto;
 import com.financyear.dto.CustomerDto;
+import com.financyear.dto.ThemeDto;
 import com.financyear.dto.UserDto;
 import com.financyear.model.AdditionalInfo;
 import com.financyear.model.Customer;
 import com.financyear.model.CustomerAccounts;
+import com.financyear.model.Themes;
 import com.financyear.model.User;
 import com.mysql.jdbc.Util;
 
@@ -107,6 +109,7 @@ public class TransformEntityToDto {
 		dto.setEmail(Utils.nullIfBlank(user.getEmail()));
 		dto.setPhoneNumber(Utils.nullIfBlank(user.getPhoneNumber()));
 		dto.setUserId(Utils.nullIfBlank(user.getId().toString()));
+		dto.setTheme(user.getTheme() != null ?user.getTheme() : "mainTheme");
 		}
 		return dto;
 	}
@@ -153,6 +156,25 @@ public class TransformEntityToDto {
 			
 		}
 
+		
+	}
+
+
+	public static void getTheme(Themes theme, ThemeDto dto) {
+		if(!Utils.isNull(theme)){
+			dto.setCreatedBy(Utils.nullIfBlank(theme.getCreatedBy()));
+			dto.setCreatedOn(Utils.convertDateToString_IndiaWithSlashes(theme.getCreatedOn()));
+			dto.setDeleteFlag(Utils.nullIfBlank(theme.getDeleteFlag()));
+			dto.setId(Utils.nullIfBlank(String.valueOf(theme.getId())));
+			dto.setPath(Utils.nullIfBlank(theme.getPath()));
+			dto.setLoginFormPath(Utils.nullIfBlank(theme.getLoginFormPath()));
+			dto.setStylesPath(Utils.nullIfBlank(theme.getStylesPath()));
+			dto.setBootstrapPath(Utils.nullIfBlank(theme.getBootstrapPath()));
+			dto.setThemeStatus(theme.isThemeStatus());
+			dto.setThemeName(Utils.nullIfBlank(theme.getThemeName()));
+			dto.setUpdatedBy(Utils.nullIfBlank(theme.getUpdatedBy()));
+			dto.setUpdatedOn(Utils.convertDateToString_IndiaWithSlashes(theme.getUpdatedOn()));
+		}
 		
 	}
 }

@@ -9,10 +9,12 @@ import org.springframework.cglib.transform.impl.AddInitTransformer;
 import com.financyear.dto.AdditionalDto;
 import com.financyear.dto.CustomerAccountsDto;
 import com.financyear.dto.CustomerDto;
+import com.financyear.dto.ThemeDto;
 import com.financyear.dto.UserDto;
 import com.financyear.model.AdditionalInfo;
 import com.financyear.model.Customer;
 import com.financyear.model.CustomerAccounts;
+import com.financyear.model.Themes;
 import com.financyear.model.User;
 
 public class TransformDtoToEntity {
@@ -89,6 +91,7 @@ public class TransformDtoToEntity {
 		 user.setPhoneNumber(Utils.nullIfBlank(dto.getPhoneNumber()));
 		 user.setPassword(Utils.nullIfBlank(dto.getPassword()));
 		 user.setConfirmPassword(Utils.nullIfBlank(dto.getConfirmPassword()));
+		 user.setTheme(dto.getTheme()!=null?dto.getTheme():"mainTheme");
 	}
 
 	public static void saveAddtionalInfo(AdditionalDto infoDto,
@@ -103,6 +106,47 @@ public class TransformDtoToEntity {
 				addtInfo.setUpdatedBy(infoDto.getUpdatedBy());
 				addtInfo.setUpdatedOn(new Date());
 			}
+		}
+		
+	}
+
+	public static void updateCurrentTheme(Themes theme, ThemeDto dto, HttpServletRequest request) {
+		if(!Utils.isNull(dto)){
+			if(!Utils.isBlank(dto.getThemeName()) && !Utils.isBlank(dto.getId())){
+				theme.setThemeStatus(false);
+				theme.setUpdatedBy(Utils.getLoginUserName(request));
+				theme.setUpdatedOn(new Date());
+			}
+			
+		}
+		
+	}
+
+	public static void updateNewTheme(Themes theme, ThemeDto dto,
+			HttpServletRequest request) {
+		if(!Utils.isNull(dto)){
+			if(!Utils.isBlank(dto.getThemeName()) && !Utils.isBlank(dto.getId())){
+				theme.setThemeStatus(true);
+				theme.setUpdatedBy(Utils.getLoginUserName(request));
+				theme.setUpdatedOn(new Date());
+			}
+			
+		}
+		
+	}
+
+	public static void saveTheme(Themes theme, ThemeDto dto,
+			HttpServletRequest request) {
+		if(!Utils.isNull(dto)){
+				theme.setThemeStatus(dto.getThemeStatus());
+				theme.setCreatedBy(Utils.getLoginUserName(request));
+				theme.setCreatedOn(new Date());
+				theme.setPath(dto.getPath());
+				theme.setLoginFormPath(dto.getLoginFormPath());
+				theme.setStylesPath(dto.getStylesPath());
+				theme.setBootstrapPath(dto.getBootstrapPath());
+				theme.setThemeName(dto.getThemeName());
+				theme.setDeleteFlag(String.valueOf(0));
 		}
 		
 	}

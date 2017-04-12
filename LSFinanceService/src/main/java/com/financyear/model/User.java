@@ -20,6 +20,7 @@ public class User {
 	private String email;
 	private String password;
 	private String confirmPassword;
+	private String theme;
 
 
 	public Integer getId() {
@@ -94,5 +95,11 @@ public class User {
 		this.email = email;
 	}
 	
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+	public String getTheme() {
+		return theme;
+	}
 
 }

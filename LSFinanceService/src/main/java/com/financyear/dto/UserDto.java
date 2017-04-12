@@ -12,6 +12,14 @@ public class UserDto {
 	private String password;
 	private String confirmPassword;
 	private String newPassword;
+	private String theme;
+	
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+	public String getTheme() {
+		return theme;
+	}
 	public String getUserId() {
 		return userId;
 	}

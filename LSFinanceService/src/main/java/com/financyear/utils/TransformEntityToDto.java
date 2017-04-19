@@ -23,7 +23,7 @@ public class TransformEntityToDto {
 		List<CustomerDto> customerDtos = new ArrayList<CustomerDto>();
 		
 		
-		
+		if(!Utils.isEmpty(customerList)){
 		
 		Iterator<?> itr1 = customerList.iterator();
 		while(itr1.hasNext()){
@@ -48,7 +48,7 @@ public class TransformEntityToDto {
 			customerDto.setCreatedOn(Utils.convertDateToString_IndiaWithSlashes(customer.getCreatedOn()));
 			
 			customerDtos.add(customerDto);
-			
+		}
 		}
 		
 		return customerDtos;
@@ -176,5 +176,29 @@ public class TransformEntityToDto {
 			dto.setUpdatedOn(Utils.convertDateToString_IndiaWithSlashes(theme.getUpdatedOn()));
 		}
 		
+	}
+
+
+	public static void getpostponedCustomerDtos(List<CustomerAccountsDto> dtos,
+			List<CustomerAccounts> customerAccount) {
+		if(!Utils.isEmpty(customerAccount)){
+			Iterator<CustomerAccounts> itr = customerAccount.iterator();
+			while(itr.hasNext()){
+				CustomerAccountsDto dto = new CustomerAccountsDto();
+				CustomerAccounts accounts = itr.next();
+				dto.setCreatedBy(Utils.nullIfBlank(accounts.getCreatedBy()));
+				dto.setCreatedOn(Utils.convertDateToString_IndiaWithSlashes(accounts.getCreatedOn()));
+				dto.setCustomerAccountId(accounts.getCustomerAccountId().toString());
+				dto.setCustomerId(accounts.getCustomerId().toString());
+				dto.setPaid(Utils.nullIfBlank(String.valueOf(Utils.round(accounts.getPaid()))));
+				dto.setPaidOn(Utils.convertDateToString_IndiaWithSlashes(accounts.getPaidOn()));
+				dto.setPaymentStatus(Utils.nullIfBlank(accounts.getPaymentStatus()));
+				dto.setPostponedTo(Utils.convertDateToString_IndiaWithSlashes(accounts.getPostponedTo()));
+				dto.setRemainingToPay(Utils.nullIfBlank(String.valueOf(Utils.round(accounts.getDue()))));
+				dto.setUpdatedBy(Utils.nullIfBlank(accounts.getUpdatedBy()));
+				dto.setUpdatedOn(Utils.convertDateToString_IndiaWithSlashes(accounts.getUpdatedOn()));
+				dtos.add(dto);
+			}
+		}
 	}
 }

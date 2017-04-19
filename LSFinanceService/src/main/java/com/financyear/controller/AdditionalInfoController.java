@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.financyear.dto.AdditionalDto;
+import com.financyear.dto.CustomerAccountsDto;
+import com.financyear.dto.CustomerDto;
 import com.financyear.model.AdditionalInfo;
 import com.financyear.service.AdditionalInfoService;
+import com.financyear.service.CustomerAccountService;
 import com.financyear.utils.StatusMessage;
 import com.financyear.utils.TransformDtoToEntity;
 import com.financyear.utils.TransformEntityToDto;
@@ -26,6 +29,9 @@ public class AdditionalInfoController {
 	
 	@Autowired
 	private AdditionalInfoService infoService;
+	
+	@Autowired
+	private CustomerAccountService accountService;
 
 	@RequestMapping(value = "saveAdditionalInfo", method = RequestMethod.POST)
 	public ResponseEntity<?> saveAdditionalInfo(HttpServletRequest request,
@@ -101,12 +107,28 @@ public class AdditionalInfoController {
 				return new ResponseEntity<StatusMessage>(status, HttpStatus.OK);
 			 }else{
 				 status.setStatusCode(String.valueOf(500));
-					status.setStatusMessage("Info didnot deleted");
+					status.setStatusMessage("Info did not deleted");
 				return new ResponseEntity<StatusMessage>(status, HttpStatus.FORBIDDEN);
 			 }
 			 
 		 }else{
 			 
+			 return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
+		 }
+		
+	}
+	
+	@RequestMapping(value = "getpostponedcustomers", method = RequestMethod.GET)
+	public ResponseEntity<?> getpostponedcustomers(HttpServletRequest request){
+		StatusMessage status = new StatusMessage();
+		List<CustomerDto> list = null;
+		 if(Utils.getLoginUserName(request) != null){
+			 list = accountService.getpostponedcustomerdetails(request);
+				 status.setStatusCode(String.valueOf(200));
+					status.setStatusMessage("Info Deleted");
+				return new ResponseEntity<List<CustomerDto>>(list, HttpStatus.OK);
+			 
+		 }else{
 			 return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
 		 }
 		

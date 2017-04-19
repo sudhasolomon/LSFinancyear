@@ -1,6 +1,6 @@
 package com.financyear.controller;
 
-import java.util.Iterator;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -79,7 +79,7 @@ public class FinancyearController {
 				if(accountDto.getPaymentStatus().equalsIgnoreCase("Paid")){
 					
 					accountDto.setCustomerId(customer.getCustomerId().toString());
-					customerAccountCalculation(accountDto, customer);
+					customerAccountCalculation(accountDto, customer, request);
 					TransformDtoToEntity.getCustomerAccountObj(customerAcObj,customer,
 							accountDto, request);
 					customerService.updateCustomer(customer);
@@ -87,6 +87,9 @@ public class FinancyearController {
 					if(accountDto.getPaymentStatus().equalsIgnoreCase("Postponed")){
 						TransformDtoToEntity.getCustomerAccountObj(customerAcObj,customer,
 								accountDto, request);
+						customer.setUpdatedBy(Utils.getLoginUserName(request));
+						customer.setUpdatedOn(new Date());
+						customerService.updateCustomer(customer);
 					}
 				}
 				customerAcService.saveCustomerAccounts(customerAcObj);
@@ -110,12 +113,14 @@ public class FinancyearController {
 	}
 
 	private void customerAccountCalculation(		 
-			CustomerAccountsDto accountDto, Customer customer) {
+			CustomerAccountsDto accountDto, Customer customer, HttpServletRequest request) {
 		if(accountDto.getOnDateCollection() != null){
 		 Double newAmt = customer.getPaid() + Double.parseDouble(accountDto.getOnDateCollection());
 		 Double newDue = customer.getDue() - Double.parseDouble(accountDto.getOnDateCollection());
 		 customer.setPaid(newAmt);
 		 customer.setDue(newDue);
+		 customer.setUpdatedOn(new Date());
+		 customer.setUpdatedBy(Utils.getLoginUserName(request));	
 		}
 	}
 	

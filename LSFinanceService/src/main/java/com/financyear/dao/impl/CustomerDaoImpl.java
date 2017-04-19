@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Repository;
 
+import com.financyear.controller.CoalesceOrder;
 import com.financyear.dao.CustomerDao;
 import com.financyear.model.Customer;
 import com.financyear.utils.Constants;
@@ -27,7 +30,8 @@ public class CustomerDaoImpl extends GenericDaoImpl<Customer, Integer> implement
 		List<Customer> customers = null;
 		try {
 			Criteria criteria = getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(Customer.class);
-			criteria.addOrder(Order.desc("createdOn"));
+			
+			criteria.addOrder(CoalesceOrder.desc("createdOn", "updatedOn"));
 			customers = criteria.list();
 		} catch (Exception e) {
 			e.printStackTrace();
